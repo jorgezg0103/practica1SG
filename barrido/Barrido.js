@@ -19,10 +19,6 @@ class Barrido extends THREE.Object3D {
     heartShape.bezierCurveTo(  0, 6, -3, 6, -3, 4 );
     heartShape.bezierCurveTo( -3, 2,  0, 0,  0, 0 );
 
-
-
-
-
     // Curva para el barrido
     const curve = new THREE.CatmullRomCurve3( [
       new THREE.Vector3( 0, 5, 10 ),
@@ -33,21 +29,6 @@ class Barrido extends THREE.Object3D {
     ] );
     curve.curveType = 'catmullrom';
     curve.closed = false;
-
-    const points = curve.getPoints( 50 );
-    const g = new THREE.BufferGeometry().setFromPoints( points );
-    
-    const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
-    
-    // Create the final object to add to the scene
-    const curveObject = new THREE.Line( g, material );
-    this.add(curveObject);
-
-
-
-
-
-
     
     // Opciones de extrusion
     const extrudeSettings = { depth: 10, bevelEnabled: false, steps: 100, extrudePath: curve };
@@ -56,10 +37,10 @@ class Barrido extends THREE.Object3D {
     const geometry = new THREE.ExtrudeGeometry( heartShape, extrudeSettings );
 
     // Mesh
-    const forma = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
+    const barrido = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
 
     // // Y añadirlo como hijo del Object3D (el this)
-    this.add(forma);
+    this.add(barrido);
 
   }
   
@@ -78,13 +59,16 @@ class Barrido extends THREE.Object3D {
   }
   
   update () {
-
     // Con independencia de cómo se escriban las 3 siguientes líneas, el orden en el que se aplican las transformaciones es:
     // Primero, el escalado
     // Segundo, la rotación en Z
     // Después, la rotación en Y
     // Luego, la rotación en X
     // Y por último la traslación
+
+    this.rotateZ(0.01);
+    this.position.set(0, 0, 0);
+
   }
 }
 

@@ -65,8 +65,8 @@ class MyBox extends THREE.Object3D {
   }
   
   update () {
-      this.rotateY(0.01);
-      this.rotateX(0.01);
+    this.rotateY(0.01);
+    this.rotateX(0.01);
     // Con independencia de cómo se escriban las 3 siguientes líneas, el orden en el que se aplican las transformaciones es:
     // Primero, el escalado
     // Segundo, la rotación en Z

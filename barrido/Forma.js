@@ -55,6 +55,7 @@ class Forma extends THREE.Object3D {
     // Después, la rotación en Y
     // Luego, la rotación en X
     // Y por último la traslación
+    this.rotateY(0.01);
     this.position.set(10, 0, 0);
   }
 }
