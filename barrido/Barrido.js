@@ -18,31 +18,45 @@ class Barrido extends THREE.Object3D {
     heartShape.bezierCurveTo(  3, 6,  0, 6,  0, 4 );
     heartShape.bezierCurveTo(  0, 6, -3, 6, -3, 4 );
     heartShape.bezierCurveTo( -3, 2,  0, 0,  0, 0 );
+
+
+
+
+
+    // Curva para el barrido
+    const curve = new THREE.CatmullRomCurve3( [
+      new THREE.Vector3( 0, 5, 10 ),
+      new THREE.Vector3( 0, 2, 5 ),
+      new THREE.Vector3( 0, 5, -5 ),
+      new THREE.Vector3( 0, 5, -10),
+
+    ] );
+    curve.curveType = 'catmullrom';
+    curve.closed = false;
+
+    const points = curve.getPoints( 50 );
+    const g = new THREE.BufferGeometry().setFromPoints( points );
+    
+    const material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+    
+    // Create the final object to add to the scene
+    const curveObject = new THREE.Line( g, material );
+    this.add(curveObject);
+
+
+
+
+
+
     
     // Opciones de extrusion
-    const extrudeSettings = { amount: 1, bevelEnabled: true, bevelSegments: 20, steps: 1, bevelSize: 0.5, bevelThickness: 0.2 };
+    const extrudeSettings = { depth: 10, bevelEnabled: false, steps: 100, extrudePath: curve };
 
     // Geometría
     const geometry = new THREE.ExtrudeGeometry( heartShape, extrudeSettings );
 
     // Mesh
     const forma = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
-    /*
-    var points = [
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 1.196, 0),
-        new THREE.Vector3(0, 1.196, 1),
-        new THREE.Vector3(0, 0, 1)
-    ];
-
-    var path = new THREE.CatmullRomCurve3(points);
-
-    var geo = new THREE.ExtrudeBufferGeometry(heartShape, {extrudePath: path, curveSegments: 12, steps: 1, bevelEnabled: false });
-
-    var mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial());
-    mesh.material.wireframe = true;
-    this.add(mesh);
-    */
 
     // // Y añadirlo como hijo del Object3D (el this)
     this.add(forma);

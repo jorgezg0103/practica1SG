@@ -1,6 +1,6 @@
 import * as THREE from '../libs/three.module.js'
  
-class Barrido extends THREE.Object3D {
+class Forma extends THREE.Object3D {
   constructor(gui,titleGui) {
     super();
     
@@ -20,29 +20,13 @@ class Barrido extends THREE.Object3D {
     heartShape.bezierCurveTo( -3, 2,  0, 0,  0, 0 );
     
     // Opciones de extrusion
-    const extrudeSettings = { amount: 1, bevelEnabled: true, bevelSegments: 20, steps: 1, bevelSize: 0.5, bevelThickness: 0.2 };
+    const extrudeSettings = { depth: 1, bevelEnabled: true, bevelSegments: 20, steps: 1, bevelSize: 0.5, bevelThickness: 0.2 };
 
     // Geometría
     const geometry = new THREE.ExtrudeGeometry( heartShape, extrudeSettings );
 
     // Mesh
     const forma = new THREE.Mesh( geometry, new THREE.MeshNormalMaterial() );
-    /*
-    var points = [
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(0, 1.196, 0),
-        new THREE.Vector3(0, 1.196, 1),
-        new THREE.Vector3(0, 0, 1)
-    ];
-
-    var path = new THREE.CatmullRomCurve3(points);
-
-    var geo = new THREE.ExtrudeBufferGeometry(heartShape, {extrudePath: path, curveSegments: 12, steps: 1, bevelEnabled: false });
-
-    var mesh = new THREE.Mesh(geo, new THREE.MeshPhongMaterial());
-    mesh.material.wireframe = true;
-    this.add(mesh);
-    */
 
     // // Y añadirlo como hijo del Object3D (el this)
     this.add(forma);
@@ -71,7 +55,8 @@ class Barrido extends THREE.Object3D {
     // Después, la rotación en Y
     // Luego, la rotación en X
     // Y por último la traslación
+    this.position.set(10, 0, 0);
   }
 }
 
-export { Barrido };
+export { Forma };
